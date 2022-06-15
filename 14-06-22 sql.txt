@@ -1,0 +1,69 @@
+11) select distinct(city) from station where(city like 'A%') 
+    or (city like 'E%') or (city like 'I%')or(city like    'O%')or(city like 'U%');
+12) select distinct(city) from station where(city like '%a')
+    or (city like '%e') or (city like '%i')or(city like '%o')or(city like '%u');
+13)select distinct(city) from station where((city like 'A%') or (city like 'E%') or (city like 'I%')or(city like 'O%')or(city like 'U%'))and((city like '%a') or (city like '%e') or (city like '%i')or(city like '%o'));
+14)SELECT DISTINCT CITY FROM STATION WHERE CITY NOT RLIKE'^[aeiouAEIOU].*$'
+15) SELECT DISTINCT CITY 
+    FROM STATION 
+    WHERE CITY NOT REGEXP '[aeiou]$'
+16) select distinct city from station where city not rlike '^[aeiou]' OR city not regexp '[aeiou]$'
+17) select distinct city from station where city not regexp '^[aeiou]' AND city not regexp '[aeiou]$'
+18) select name from students where marks>75
+order by Right(name,3),ID;
+19) select name from employee
+order by name;
+20) select name from employee where (salary>2000) and (months<10)
+order by employee_id ;
+
+
+
+practice-
+•	select course_id from section as S where semester='Fall' and year=2009 and 
+exists(select * from section as T where semester ='Spring' and year=2010 and 
+S.course_id=T.course_id);
+describe section;
+select * from section;
+
+•	(select course_id from section where semester ='Fall' and year =2017)
+except(select course_id from section where semester ='spring' and year= 2017);
+•	Select T.course_id from course as T where 
+unique (select R.course_id from section as R where T.course_id = R.course_id and R.year=2009);
+
+
+•	describe instructor;
+select Id, name ,avg (salary) from instructor 
+group by dept_name
+having avg(salary)>42000;
+
+•	use university;
+show triggers in university;
+describe instructor;
+create trigger bef
+before insert on instructor 
+for each row 
+set new.salary = new.salary+30;
+
+select dept_name from instructor;
+insert into instructor(ID,name,dept_name,salary) values (1001,'Poorva','Athletics',700000);
+
+•	drop trigger bef ;
+
+•	create trigger aft
+after insert on instructor 
+for each row 
+set new.salary = new.salary+30;
+
+•	insert into instructor(ID,name,dept_name,salary) values (1003,'kaya','Athletics',900000);
+use university;
+show tables;
+create trigger afte 
+after insert
+on instructor
+for each row
+insert into id_and_salary values (new.ID, new.salary);
+
+insert into instructor (ID, name, dept_name, salary)
+values (1004, 'akshata', 'Athletics', 900000);
+
+select salary from instructor;
